@@ -5,6 +5,7 @@ class Plugin:
         self.leave_listen = False
         self.reply_listen = False
         self.need_admin = False
+        self.need_root = False
 
     def get_name(self):
         #print('name:[' + self.__class__.__name__.lower() + ']')

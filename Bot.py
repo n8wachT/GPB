@@ -2,11 +2,13 @@
 import telebot
 import Utils
 token = ''
+if(token == ''):
+    token = input('No token detected, please paste or type here your token:\n> ')
+print('token = ['+token+']')
 bot = telebot.TeleBot(token)
 plugins = Utils.build_plugins(bot, 'plugins')
 command_char = '/'
-if(token == ''):
-    token = input('No token detected, please paste or type here your token:\n> ')
+
 ###BOT RELATED STUFF
 
 ##Log messages to console.
