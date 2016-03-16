@@ -1,3 +1,4 @@
+import Settings
 class Plugin(object):
     def __init__(self, bot):
         self.bot = bot
@@ -24,7 +25,8 @@ class Plugin(object):
         self.uid = message.from_user.id
         self.text = message.text
         self.words = self.text.split()
-        self.rest = self.text[len(self.get_name())+2:]
+        start_index = len(self.get_name())+len(Settings.command_char)+1
+        self.rest = self.text[start_index:]
 
     def on_reply(self, message):
         return False

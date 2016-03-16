@@ -10,4 +10,4 @@ class Bold(Plugin):
         self.bot.send_message(self.cid,'*' + self.rest + '*', parse_mode = "Markdown")
         
     def get_help(self):
-        return "A Simple Bold Plugin."
+        return "bold <text>\nReturns bold text."

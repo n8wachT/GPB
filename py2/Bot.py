@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from Settings import *
-
+import Settings
+bot = Settings.bot
 ###BOT RELATED STUFF
 
 ##Log messages to console.
@@ -17,8 +17,7 @@ def log_message(m):
         
 ##Check if a message fires an event.
 def fire_events(m):
-    global plugins
-    for p in plugins:
+    for p in Settings.plugins:
         #Fired on listening plugins
         if(p.listening):
             if(p.on_listen(m)):
@@ -31,7 +30,7 @@ def fire_events(m):
             if(m.text.split()[0][1:] in p.aliases):
                 p.on_message(m)
                 continue
-            if(m.text.startswith(command_char + p.get_name())):
+            if(m.text.startswith(Settings.command_char + p.get_name())):
                 p.on_message(m)
 
 #Custom listener.

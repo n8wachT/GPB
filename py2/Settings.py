@@ -1,11 +1,13 @@
 import telebot
-import Utils
-from SDBApi import SDBApi
-server = SDBApi()
-command_char = '/'
+from Utils import build_plugins
+#from SDBApi import SDBApi
+#server = SDBApi()
+disabled_plugins = ['Store.py']
+command_char = '!'
 token = ''
 if(token == ''):
     token = raw_input('No token detected, please paste or type here your token:\n> ')
 print('token = ['+token+']')
 bot = telebot.TeleBot(token)
-plugins = Utils.build_plugins(bot, 'plugins')
+
+plugins = build_plugins(bot, 'plugins', disabled_plugins)

@@ -10,4 +10,4 @@ class Echo(Plugin):
         self.bot.send_message(self.cid, self.rest)
         
     def get_help(self):
-        return "A Simple Echo Plugin."
+        return "echo <text>\nA Simple Echo Plugin."
