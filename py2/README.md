@@ -28,10 +28,10 @@ class Hello(Plugin):
 ```
 4)Implement `on_message(self, message)` method, there are two ways:
 
-  4a)Use the `super().on_message(message)` method to get useful variables.
+  4a)Use the `super(Hello, self).on_message(message)` method to get useful variables.
   ```python
     def on_message(self, message):
-      super().on_message(message)
+      super(Hello, self).on_message(message)
       self.bot.send_message(self.cid, "Hello!")
   ```
   4b)Just don't use `super().on_message(message)` and get the variables from `message`.
@@ -57,7 +57,7 @@ from Plugin import Plugin
 
 class Hello(Plugin):
   def on_message(self, message):
-    super().on_message(message)
+    super(Hello, self).on_message(message)
     if(message.text[1:] == self.get_name()):
       self.bot.send_message(self.cid, self.get_help())
       return
