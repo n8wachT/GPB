@@ -18,7 +18,9 @@ def execute(string):
     return result
     
 class Exec(Plugin):
-        
+    def on_start(self):
+	self.need_admin = True
+	
     def on_message(self, message):
         super(Exec, self).on_message(message)
         if(message.text[1:] == self.get_name()):

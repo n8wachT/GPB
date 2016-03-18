@@ -1,4 +1,6 @@
-import os, importlib, sys,traceback
+import os, importlib, sys, traceback, urllib2
+from json import loads
+import Settings
 def get_class(module):
     return module.__getattribute__(module.__name__.split('.')[1])
 
@@ -32,3 +34,17 @@ def catch_exception(exception):
 {1}: {2}.'''.format(trace, exc_type.__name__, exc_obj)
     #print('Exception Received, Message:\n' + message)
     return message
+
+def get_document(file_id, filename):
+    url_head = 'https://api.telegram.org/bot'
+    url_method = '/getFile?file_id='
+    full_url = url_head + Settings.token + url_method + file_id
+    response = urllib2.urlopen(full_url).read()
+    file_path = loads(response)['result']['file_path']
+    file_url = 'https://api.telegram.org/file/bot{0}/{1}'.format(Settings.token, file_path)
+    response = urllib2.urlopen(file_url).read()
+    #print('Response = [{}]'.format(response))
+    with open(filename, 'w') as plugin_file:
+        plugin_file.write(response)
+    return len(response)
+

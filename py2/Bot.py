@@ -28,9 +28,15 @@ def fire_events(m):
                 return
         if(m.text != None):
             if(m.text.split()[0][1:] in p.aliases):
+                if(p.need_admin and m.from_user.id not in Settings.admins):
+                    bot.reply_to(m, 'Admin Only.')
+                    return
                 p.on_message(m)
                 continue
             if(m.text.startswith(Settings.command_char + p.get_name())):
+                if(p.need_admin and m.from_user.id not in Settings.admins):
+                    bot.reply_to(m, 'Admin Only.')
+                    return
                 p.on_message(m)
 
 #Custom listener.

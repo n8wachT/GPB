@@ -24,7 +24,10 @@ class Help(Plugin):
         result = []
         for x in Settings.plugins:
             help_string = self.extract_help(x)
+            if(x.need_admin):
+                help_string = help_string + '[*]'
             result.append(Settings.command_char + help_string)
         l = str(len(Settings.plugins))
-        return 'Detected Plugins: ' + l + '\n' + '\n'.join(result)
+        response = 'Detected Plugins: ' + l + '\n' + '\n'.join(result)
+        return response + '\n[*] = Admins Only'
             

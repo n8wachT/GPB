@@ -2,6 +2,7 @@ import telebot
 from Utils import build_plugins
 #from SDBApi import SDBApi
 #server = SDBApi()
+admins = [59802458]
 disabled_plugins = ['Store.py']
 command_char = '!'
 token = ''

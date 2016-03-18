@@ -6,7 +6,6 @@ class Plugin(object):
         self.listening = False
         self.listening_reply = False
         self.need_admin = False
-        self.need_root = False
         self.on_start()
         
     def get_name(self):
@@ -30,6 +29,9 @@ class Plugin(object):
 
     def on_reply(self, message):
         return False
+        
+    def on_alias(self, message, alias):
+        pass
         
     def on_listen(self, message):
         return False
