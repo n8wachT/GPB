@@ -59,7 +59,7 @@ def get_document(file_id, filename):
 #Utility to change a certain line from a file to another text.
 def change_line(target_file, original_line, modified_line):
     #print('Target File[{0}]\nOriginal Line[{1}]\nModified Line[{2}].'.format(
-    target_file, original_line, modified_line))
+    #target_file, original_line, modified_line))
     this = open(target_file)
     lines = this.readlines()
     this.close()
