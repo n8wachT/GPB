@@ -36,7 +36,8 @@ def catch_exception(exception):
     for x in traceback.extract_tb(exc_tb).pop():
         tb.append(x)
     trace = 'File "{0}", line {1}, in {2}.'.format(tb.pop(0), tb.pop(0), tb.pop(0))
-    message = '''Traceback (most recent call last):
+    message = '''
+Traceback (most recent call last):
     {0}
 {1}: {2}.'''.format(trace, exc_type.__name__, exc_obj)
     #print('Exception Received, Message:\n' + message)
