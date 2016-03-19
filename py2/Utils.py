@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os, importlib, sys, traceback, urllib2
 from json import loads
 import Settings
@@ -47,4 +48,3 @@ def get_document(file_id, filename):
     with open(filename, 'w') as plugin_file:
         plugin_file.write(response)
     return len(response)
-
