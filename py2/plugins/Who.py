@@ -8,7 +8,7 @@ class Who(Plugin):
         message.from_user.first_name,
         message.from_user.username,
         str(message.from_user.id),
-        (message.chat.id))
+        str(message.chat.id))
         pe = u'\U0001f464'
         ge = u'\U0001f465'
         if(message.chat.username):
