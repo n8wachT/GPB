@@ -16,7 +16,6 @@ class Plugins(Plugin):
     
     def on_start(self):
         self.need_admin = True
-        self.disabled_plugins = []
         super(Plugins, self).on_start()
         
     def on_message(self, message):
@@ -47,25 +46,27 @@ class Plugins(Plugin):
             
     def get_help(self):
         return help_message
+        
     def write_plugin(self, name):
         write_message = 'write:'+name+'\n' + (
         'Reply to this message with your source code.\n' + 
         'It will be saved as ' + name + '.py')
         self.bot.send_message(self.cid, write_message)
         self.listening_reply = True
+        
     def disable_plugin(self, name):
         for x in Settings.plugins:
             if(x.get_name() == name):
                 p = Settings.plugins.pop(Settings.plugins.index(x))
-                self.disabled_plugins.append(p)
+                Settings.disabled_plugins.append(p)
                 self.bot.send_message(self.cid, 'Plugin ' + name + ' disabled.')
                 return
         self.bot.send_message(self.cid, 'Plugin ' + name + ' not found.')
 
     def enable_plugin(self, name):
-        for x in self.disabled_plugins:
+        for x in Settings.disabled_plugins:
             if(x.get_name() == name):
-                p = self.disabled_plugins.pop(self.disabled_plugins.index(x))
+                p = Settings.disabled_plugins.pop(Settings.disabled_plugins.index(x))
                 Settings.plugins.append(p)
                 self.bot.send_message(self.cid, 'Plugin ' + name + ' enabled.')
                 return
@@ -73,11 +74,13 @@ class Plugins(Plugin):
         
     def update_plugin(self, name):
         self.bot.send_message(self.cid, 'Command not implemented yet.')
+        
     def upload_plugin(self):
         write_message = 'code:upload\n' + (
         'Reply to this message with your .py file')
         self.bot.send_message(self.cid, write_message)
         self.listening_reply = True
+        
     def on_reply(self, message):
         code = message.reply_to_message.text.split('\n')[0]
         if(code.startswith('write')):

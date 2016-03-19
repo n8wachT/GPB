@@ -37,7 +37,7 @@ class Plugin(object):
         self.text = message.text
         #Array with all the words.
         self.words = self.text.split()
-        start_index = len(self.words[0])+len(Settings.command_char)+1
+        start_index = len(self.words[0])+len(Settings.command_char)
         #String with the rest of the message, except the command.
         self.rest = self.text[start_index:]
 
