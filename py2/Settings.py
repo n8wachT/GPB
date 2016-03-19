@@ -3,7 +3,9 @@ from Utils import build_plugins
 #from SDBApi import SDBApi
 #server = SDBApi()
 admins = [59802458]
-disabled_plugins = ['Store.py']
+disabled_files = ['Store.py']
+disabled_plugins = []
+strict_errors = False
 command_char = '!'
 token = ''
 if(token == ''):
@@ -11,4 +13,4 @@ if(token == ''):
 print('token = ['+token+']')
 bot = telebot.TeleBot(token)
 
-plugins = build_plugins(bot, 'plugins', disabled_plugins)
+plugins = build_plugins(bot, 'plugins', disabled_files)

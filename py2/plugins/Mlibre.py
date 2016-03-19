@@ -1,5 +1,5 @@
-from Plugin import Plugin
 # -*- coding: utf-8 -*-
+from Plugin import Plugin
 from json import loads
 from urllib2 import urlopen
 

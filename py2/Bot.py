@@ -18,7 +18,7 @@ def log_message(m):
 ##Check if a message fires an event.
 def fire_events(m):
     for p in Settings.plugins:
-        #Fired on listening plugins
+        #Fired on listening Plugins
         if(p.listening):
             if(p.on_listen(m)):
                 return
@@ -26,18 +26,29 @@ def fire_events(m):
         if(m.reply_to_message and p.listening_reply):
             if(p.on_reply(m)):
                 return
+        #Text messages section.
         if(m.text != None):
+            #Fired on Alias
             if(m.text.split()[0][1:] in p.aliases):
+                #Check if is an admin plugin.
                 if(p.need_admin and m.from_user.id not in Settings.admins):
                     bot.reply_to(m, 'Admin Only.')
                     return
-                p.on_message(m)
+                try:
+                    p.on_message(m)
+                except Exception as e:
+                    p.on_error(m, e)
                 continue
+            #Fired on Plugin Name
             if(m.text.startswith(Settings.command_char + p.get_name())):
+                #Check if is an admin plugin.
                 if(p.need_admin and m.from_user.id not in Settings.admins):
                     bot.reply_to(m, 'Admin Only.')
                     return
-                p.on_message(m)
+                try:
+                    p.on_message(m)
+                except Exception as e:
+                    p.on_error(m, e)
 
 #Custom listener.
 def listener(messages):
