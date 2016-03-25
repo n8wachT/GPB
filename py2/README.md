@@ -1,5 +1,5 @@
 # GPB
-Generic Python3 Bot.
+Generic Python2.7 Bot.
 
 This bot uses [pyTelegramBotAPI](https://github.com/eternnoir/pyTelegramBotAPI).
 
