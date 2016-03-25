@@ -59,5 +59,7 @@ def listener(messages):
 #Set custom listener.
 bot.set_update_listener(listener)
 print("Bot started")
+for admin in Settings.admins:
+    bot.send_message(admin, 'Bot Started.')
 #Bot starts here.
 bot.polling(True)
