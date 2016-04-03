@@ -15,7 +15,7 @@ class Who(Plugin):
             gn = '@' + message.chat.username
         else:
             gn = message.chat.title or message.chat.first_name
-        text = 'Info about of ' + na + ':\n' + pe + ' @'+us+'['+ui+']\n'+pe+ ' ' + gn + '['+gi+']'
+        text = 'Info about ' + na + ':\n' + pe + ' @'+us+'['+ui+']\n'+pe+ ' ' + gn + '['+gi+']'
 
         self.bot.send_message(self.cid, text)
 
