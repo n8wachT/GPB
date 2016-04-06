@@ -4,7 +4,7 @@ class Echo(Plugin):
         
     def on_message(self, message):
         super(Echo, self).on_message(message)
-        if(message.text[1:] == self.get_name()):
+        if(len(self.words) == 1):
             self.bot.send_message(self.cid, self.get_help())
             return
         self.bot.send_message(self.cid, self.rest)
