@@ -5,7 +5,7 @@ class Plugin(object):
     def __init__(self, bot):
         #Bot instance.
         self.bot = bot
-        #Plugin Aliases, must me edited at on_start function.
+        #Plugin Aliases, should be edited at on_start function.
         self.aliases = []
         #Used to fetch all messages.
         self.listening = False
@@ -13,6 +13,9 @@ class Plugin(object):
         self.listening_reply = False
         #Set it to true if is a plugin only for admins.
         self.need_admin = False
+        #Disable this plugin if it raises an exception.
+        self.disable_on_error = True
+        #Customize your plugin inside this function.
         self.on_start()
         
     #Returns the plugin name in lowercase based on class .    
@@ -47,8 +50,8 @@ class Plugin(object):
         return False
     
     #Called when a message contain the alias / aliases for this plugin.    
-    def on_alias(self, message, alias):
-        pass
+    def on_alias(self, message):
+        self.on_message(message)
         
     #Called when a plugin sets listening to True. This is called for all messages.
     def on_listen(self, message):
@@ -60,7 +63,10 @@ class Plugin(object):
         #First try to send the exception via telegram.
         text = catch_exception(exception)
         if(Settings.strict_errors):
-            text = '\nWARNING, STRICT PLUGIN DISABLING ON ERRORS IS ENABLED.\n' + text
+            text = ('\nWARNING, STRICT PLUGIN DISABLING ON ERRORS IS ENABLED.\n' +
+                    'THIS PLUGIN WILL BE DISABLED ACROSS EXECUTIONS\n' +
+                    'TO RE-ENABLE THIS PLUGIN JUST EDIT Settings.py\n' +
+                    text)
         else:
             text = text + '\nAdvice: This plugin has been disabled at runtime.'
         try:

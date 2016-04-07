@@ -35,7 +35,7 @@ def fire_events(m):
                     bot.reply_to(m, 'Admin Only.')
                     return
                 try:
-                    p.on_message(m)
+                    p.on_alias(m)
                 except Exception as e:
                     p.on_error(m, e)
                 continue
