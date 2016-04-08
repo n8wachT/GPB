@@ -4,7 +4,8 @@ class Help(Plugin):
 
     def on_message(self, message):
         super(Help, self).on_message(message)
-        if(message.text[1:].startswith(self.get_name())):
+        help_triggers = [self.get_name(), self.get_name() + '@' + Settings.username]
+        if(message.text[1:] in help_triggers):
             self.bot.send_message(self.cid, self.build_help())
             return
         if(len(self.words) >= 2):
