@@ -72,3 +72,11 @@ def change_line(target_file, original_line, modified_line):
         this.write(x)
     this.close()
     #print('Absolute Path[{}]'.format(os.path.abspath(target_file)))
+
+#Clean markdown characters from the given string.
+def clean_markdown(text):
+    text = u'' + str(text)
+    text = text.replace('_', ' ')
+    text = text.replace('*', '')
+    text = text.replace('`', '')
+    return text
