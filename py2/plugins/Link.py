@@ -1,5 +1,6 @@
 from Plugin import Plugin
 from Settings import username
+
 class Link(Plugin):
         
     def on_message(self, message):
@@ -27,4 +28,4 @@ class Link(Plugin):
             self.bot.send_message(self.cid, 'Your argument is invalid.')
 
     def get_help(self):
-        return "Link <text> <link>\nReturns a clicable text with the given link."
+        return "link <text> <link>\nReturns a clicable text with the given link."
