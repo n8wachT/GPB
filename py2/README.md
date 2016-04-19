@@ -12,7 +12,7 @@ And clone the bot:
 ```
 git clone https://github.com/sanguchi/GPB/
 ```
-Don't forget to edit the token variable in Bot.py
+Don't forget to edit the token variable in Settings.py
 
 ###Creating Plugins.
 1)Create a new python file inside 'plugins' folder.
