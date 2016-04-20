@@ -3,6 +3,7 @@ from Plugin import Plugin
 from json import loads
 from urllib2 import urlopen
 from Utils import clean_markdown
+import socket
 
 class Geoip(Plugin):
         
@@ -20,8 +21,9 @@ class Geoip(Plugin):
         return "geoip <ip>\nReturns details about any given ip."
 
 def query_ip(ip_string):
-    if(is_valid(ip_string)):
-        url = 'http://geoip.nekudo.com/api/' + ip_string + '/short'
+    ip = is_valid(ip_string)
+    if(ip):
+        url = 'http://geoip.nekudo.com/api/' + ip + '/short'
         response = urlopen(url).read()
         #print('Response:' + response)
         try:
@@ -51,18 +53,8 @@ def json_details(obj, tab=0):
 
 #TODO: replace this shit with regex.
 def is_valid(ip):
-    if(not ip.count('.') == 3):
+    try:
+        data = socket.gethostbyname(ip)
+        return str(data)
+    except:
         return False
-    args = ip.split('.')
-    if(not len(args) == 4):
-        return False
-    for x in args:
-        if(len(x) > 3):
-            return False
-        try:
-            r = int(x)
-            if(r < 0 or r > 255):
-                return False
-        except:
-            return False
-    return True

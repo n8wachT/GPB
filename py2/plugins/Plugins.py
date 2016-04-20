@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from Plugin import Plugin
 from Utils import build_plugins, get_document
 import Settings

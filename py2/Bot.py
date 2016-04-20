@@ -1,63 +1,31 @@
 # -*- coding: utf-8 -*-
 import Settings
+from Events import message_event
 bot = Settings.bot
 ###BOT RELATED STUFF
 
 ##Log messages to console.
 def log_message(m):
     cid = m.chat.id
+    name = m.from_user.first_name.encode('ascii', 'ignore').decode('ascii')
     if(m.content_type == 'text'):
-        if cid > 0:
-            name = m.chat.first_name.encode('ascii', 'ignore').decode('ascii')
-            mensaje = name + "["+str(cid) + "]:" + m.text
-        else:
-            name = m.from_user.first_name.encode('ascii', 'ignore').decode('ascii')
-            mensaje = name + "["+str(cid)+"]:"+ m.text
-        print(mensaje.encode('ascii', 'ignore').decode('ascii'))
+        message_text = m.text.encode('ascii', 'ignore').decode('ascii')
+        #name = m.chat.first_name if cid > 0 else m.from_user.first_name
+    else:
+        message_text = m.content_type
+    print('{}[{}]:{}'.format(name, cid, message_text))
         
-##Check if a message fires an event.
-def fire_events(m):
-    for p in Settings.plugins:
-        #Fired on listening Plugins
-        if(p.listening):
-            if(p.on_listen(m)):
-                return
-        #Fired on reply_to_message.
-        if(m.reply_to_message and p.listening_reply):
-            if(p.on_reply(m)):
-                return
-        #Text messages section.
-        if(m.text != None):
-            #Fired on Alias
-            if(m.text.split()[0][1:] in p.aliases):
-                #Check if is an admin plugin.
-                if(p.need_admin and m.from_user.id not in Settings.admins):
-                    bot.reply_to(m, 'Admin Only.')
-                    return
-                try:
-                    p.on_alias(m)
-                except Exception as e:
-                    p.on_error(m, e)
-                continue
-            #Fired on Plugin Name
-            if(m.text.startswith(Settings.command_char + p.get_name())):
-                #Check if is an admin plugin.
-                if(p.need_admin and m.from_user.id not in Settings.admins):
-                    bot.reply_to(m, 'Admin Only.')
-                    return
-                try:
-                    p.on_message(m)
-                except Exception as e:
-                    p.on_error(m, e)
-
 #Custom listener.
 def listener(messages):
     for m in messages:
+        if(m.chat.id in Settings.ignored_chats):
+            continue
         log_message(m)
-        fire_events(m)
+        message_event(m)
         
 #Set custom listener.
 bot.set_update_listener(listener)
+
 print("Bot started")
 for admin in Settings.admins:
     bot.send_message(admin, 'Bot Started.')

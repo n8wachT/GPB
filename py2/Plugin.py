@@ -1,20 +1,31 @@
+# -*- coding: utf-8 -*-
 import Settings
-from Utils import catch_exception, change_line
+from Utils import catch_exception, change_line, get_group
 #Base class for all plugins.
 class Plugin(object):
     def __init__(self, bot):
         #Bot instance.
         self.bot = bot
+        #DEPRECATED, I THINK ALIASES ARE USELESS.
+        #(but i leave it here if you want to use them.)
         #Plugin Aliases, should be edited at on_start function.
         self.aliases = []
         #Used to fetch all messages.
         self.listening = False
         #Listen when a user replies to the bot.
         self.listening_reply = False
-        #Set it to true if is a plugin only for admins.
+        #Set it to true if is a plugin only for admins(the bot's owner).
         self.need_admin = False
+        #Set it to true if is a moderation/management plugin.
+        self.need_mod = False
         #Disable this plugin if it raises an exception.
         self.disable_on_error = True
+        #Set it to true to make it unavaliable to certain bots functions.
+        self.hidden = False
+        #Set it to true to make a plugin only available for private chats.
+        self.private_only = False
+        #Edit this if you want to make your plugin appear in plugin_market.
+        self.plugin_type = 'Undefined'
         #Customize your plugin inside this function.
         self.on_start()
         
@@ -32,6 +43,7 @@ class Plugin(object):
     
     #Called when a message contains the plugin name.
     def on_message(self, message):
+        print('Plugin ' + self.get_name() + ' fired.')
         #Short for chat id
         self.cid = message.chat.id
         #Short for user id
@@ -43,15 +55,24 @@ class Plugin(object):
         start_index = len(self.words[0])+len(Settings.command_char)
         #String with the rest of the message, except the command.
         self.rest = self.text[start_index:]
+        #Current Group Instance.
+        #group can be false if the current chat is not a group chat
+        #or if chat id is not in the groups table.
+        self.group = get_group(self.cid)
 
     #Function called when a message is listening to user reply.
     def on_reply(self, message):
         #Return False if the message should be propagated to another plugin listening.
         return False
-    
-    #Called when a message contain the alias / aliases for this plugin.    
+        
+    #DEPRECATED. DON'T USE ALIASES, I THINK THERE ARE USELESS.
+    #Called when a message contain the alias / aliases for this plugin.
+    #Override it to let know a plugin when is called by their alias/es
     def on_alias(self, message):
         self.on_message(message)
+        #Return False if the message should be propagated to the rest of plugins.
+        #So you can call multiple plugins with the same alias at once.
+        return False
         
     #Called when a plugin sets listening to True. This is called for all messages.
     def on_listen(self, message):
