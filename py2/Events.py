@@ -139,4 +139,4 @@ def message_event(m):
     else:
         Settings.bot.send_message(m.chat.id, 'This bot is not implemented to work in {} yet.'.format(m.chat.type))
         kick_chat_member(m.chat.id, Settings.me.id)
-        Settings.ignored_chats.append(m.chat.id)
+        #Settings.ignored_chats.append(m.chat.id)
