@@ -40,6 +40,18 @@ def get_document(file_id, filename):
     with open(filename, 'w') as plugin_file:
         plugin_file.write(response)
     return len(response)
+
+#Downloads files from telegram in binary mode.
+def get_binary(file_id, filename):
+    url_head = 'https://api.telegram.org/bot'
+    url_method = '/getFile?file_id='
+    full_url = '{}{}{}{}'.format(url_head, Settings.token, url_method, file_id)
+    file_path = json.loads(get(full_url).text)['result']['file_path']
+    file_url = 'https://api.telegram.org/file/bot{0}/{1}'.format(Settings.token, file_path)
+    response = get(file_url).text
+    with open(filename, 'wb') as bin_file:
+        bin_file.write(response)
+    return len(response)
     
 #Clean markdown characters from the given string.
 def clean_markdown(text):
