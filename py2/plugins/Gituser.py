@@ -10,6 +10,7 @@ class Gituser(Plugin):
         super(Gituser, self).on_message(message)
         if(len(self.words) == 1):
             self.bot.reply_to(message, get_help())
+            return
         if(len(self.words) == 2):
             self.bot.reply_to(
             message, 
