@@ -49,7 +49,7 @@ def get_binary(file_id, filename):
     file_path = json.loads(get(full_url).text)['result']['file_path']
     file_url = 'https://api.telegram.org/file/bot{0}/{1}'.format(Settings.token, file_path)
     response = get(file_url).text
-    with open(filename, 'wb') as bin_file:
+    with open(filename, 'w+b') as bin_file:
         bin_file.write(response)
     return len(response)
     
