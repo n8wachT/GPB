@@ -33,7 +33,7 @@ def get_document(file_id, filename):
     url_method = '/getFile?file_id='
     full_url = url_head + Settings.token + url_method + file_id
     response = get(full_url).text
-    file_path = loads(response)['result']['file_path']
+    file_path = json.loads(response)['result']['file_path']
     file_url = 'https://api.telegram.org/file/bot{0}/{1}'.format(Settings.token, file_path)
     response = get(file_url).text
     #print('Response = [{}]'.format(response))
