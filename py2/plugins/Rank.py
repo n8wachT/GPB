@@ -11,7 +11,7 @@ class Rank(Plugin):
         if(message.reply_to_message and self.group):
             target_id = message.reply_to_message.from_user.id
             if(self.group.is_moderator(target_id)):
-                self.bot.send_message(self.cid, self.group.delete_moderator(target_id))
+                self.bot.send_message(self.cid, self.group.del_moderator(target_id))
             else:
                 self.bot.send_message(self.cid, self.group.add_moderator(target_id))
         else:

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
-
+from Settings import admins
 default_plugins = ['plugins', 'rank', 'ignore', 'settings', 'help', 'echo', 'who', 'test']
 
 class Group(object):
@@ -39,6 +39,8 @@ class Group(object):
             return 'Moderators can\'t be ignored, please /rank that user then /ignore again.'
         if(user_id == self.admin):
             return 'Nope, you\'re the Manager, you can\'t make me ignore you.'
+        if(user_id in admins):
+            return 'Owners can\'t be ignored'
         return 'Dafuq idk what happened with this error'
             
     def del_ignore(self, user_id):
