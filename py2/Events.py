@@ -121,13 +121,23 @@ def chat_blocked(m):
     pass
 
 def chat_event(m):
-    pass
-    
+        ##TEXT EVENTS.
+    if(m.text):
+        #-------ADMIN SECTION--------
+        if(m.from_user.id in Settings.admins):
+            for x in Settings.plugins:
+                if(m.text.startswith(Settings.command_char + x.get_name())):
+                    try:
+                        x.on_message(m)
+                    except Exception as e:
+                        x.on_error(m, e)
+        #-------ADMIN SECTION--------
 def chat_glitch(m):
     pass
 
 def private_select(m):
-    pass
+    if(m.chat.id in Settings.admins):
+        chat_event(m)
     
 def message_event(m):
     if(m.chat.type == 'private'):
