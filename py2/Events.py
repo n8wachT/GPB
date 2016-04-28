@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import Settings, Statics
-from Utils import check_privileges, save_groups, kick_chat_member
+from Utils import check_privileges, save_groups, kick_chat_member, is_old
 from Group import Group
 ###GROUP CHAT EVENTS
 
@@ -140,6 +140,8 @@ def private_select(m):
         chat_event(m)
     
 def message_event(m):
+    if(Settings.ignore_old and is_old(m)):
+        return
     if(m.chat.type == 'private'):
         private_select(m)
         return

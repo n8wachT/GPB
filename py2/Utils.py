@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import os, importlib, sys, traceback, json
+import os, importlib, sys, traceback, json, time
 from requests import get
 import Settings
 from Group import Group
@@ -36,7 +36,6 @@ def get_document(file_id, filename):
     file_path = json.loads(response)['result']['file_path']
     file_url = 'https://api.telegram.org/file/bot{0}/{1}'.format(Settings.token, file_path)
     response = get(file_url).text
-    #print('Response = [{}]'.format(response))
     with open(filename, 'w') as plugin_file:
         plugin_file.write(response)
     return len(response)
@@ -55,7 +54,7 @@ def get_binary(file_id, filename):
     
 #Clean markdown characters from the given string.
 def clean_markdown(text):
-    text = u'' + str(text)
+    text = u'' + text
     text = text.replace('_', ' ')
     text = text.replace('*', '')
     text = text.replace('`', '')
@@ -85,24 +84,19 @@ def catch_exception(exception):
 Traceback (most recent call last):
     {0}
 {1}: {2}.'''.format(trace, exc_type.__name__, exc_obj)
-    #print('Exception Received, Message:\n' + message)
     return message
 
 #Utility to change a certain line from a file to another text.
 def change_line(target_file, original_line, modified_line):
-    #print('Target File[{0}]\nOriginal Line[{1}]\nModified Line[{2}].'.format(
-    #target_file, original_line, modified_line))
     this = open(target_file)
     lines = this.readlines()
     this.close()
     this = open(target_file, 'w')
     for x in lines:
         if(x == original_line):
-            #print('Original[{0}] - Modified[{1}].'.format(x, modified_line))
             x = modified_line
         this.write(x)
     this.close()
-    #print('Absolute Path[{}]'.format(os.path.abspath(target_file)))
 
 
 ### GROUP UTILS
@@ -115,7 +109,7 @@ def init_groups():
             groups_table = json.load(f)
     else:
         with open(gfile,'w') as f:
-            json.dump({}, f)
+            json.dump({}, f, indent=2)
             return {}
     groups = []
     for x in groups_table:
@@ -169,3 +163,7 @@ def kick_chat_member(chat_id, user_id):
     Settings.token, chat_id, user_id)
     response = get(url).text
     return json.loads(response)
+
+##MESSAGE UTILS
+def is_old(m):
+    return (time.time() - m.date) > 60 

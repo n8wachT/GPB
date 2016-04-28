@@ -52,9 +52,8 @@ class Plugin(object):
         self.text = message.text
         #Array with all the words.
         self.words = self.text.split()
-        start_index = len(self.words[0])+len(Settings.command_char)
         #String with the rest of the message, except the command.
-        self.rest = self.text[start_index:]
+        self.rest = self.text.split(' ', 1)[1] if len(self.words) > 1 else False
         #Current Group Instance.
         #group can be false if the current chat is not a group chat
         #or if chat id is not in the groups table.

@@ -16,6 +16,7 @@ print('token = ['+token+']')
 groups = init_groups()
 bot = telebot.TeleBot(token)
 me = bot.get_me()
+ignore_old = True
 username = me.username
 nickname = me.first_name
 print('Bot username: [@' + username + ']')
