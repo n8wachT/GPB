@@ -42,6 +42,7 @@ def get_document(file_id, filename):
 
 #Downloads files from telegram in binary mode.
 def get_binary(file_id, filename):
+    filename = str(filename)
     url_head = 'https://api.telegram.org/bot'
     url_method = '/getFile?file_id='
     full_url = '{}{}{}{}'.format(url_head, Settings.token, url_method, file_id)
