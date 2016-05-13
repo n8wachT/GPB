@@ -39,7 +39,7 @@ class Detect(Plugin):
             unlink(fname)
             return self.bot.reply_to(message, 'No faces or eyes found.') 
         caption = 'Found {} face{} and {} eye{}.'.format(
-        fcs, ('s' if fcs > 1 else ''), eys, ('s' if eys > 1 else ''))
+        fcs, ('s' if fcs == 1 else ''), eys, ('s' if eys == 1 else ''))
         self.bot.send_photo(self.cid, open(fname, 'rb'), caption, message.message_id)
         unlink(fname)
         
