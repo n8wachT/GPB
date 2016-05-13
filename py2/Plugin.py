@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import Settings
-from Utils import catch_exception, change_line, get_group
+from Utils import catch_exception, change_line, get_group, ask
+from Store import get_cursor, get_dbconn
 #Base class for all plugins.
 class Plugin(object):
     def __init__(self, bot):
@@ -107,3 +108,35 @@ class Plugin(object):
                     cline = "disabled_files = ['" + "', '".join(Settings.disabled_files) + "']\n"
                     nline = "disabled_files = ['" + "', '".join(Settings.disabled_files) + "', '" + filename + "']\n"
                     change_line('Settings.py', cline, nline)
+                    
+    #Save a value into database.
+    def add_value(self, variable, value):
+        script = 'insert into plugins(plugin, variable, value) values(?, ?, ?);'
+        cur = get_cursor()
+        cur.execute(script, (self.get_name(), variable, value))
+        get_dbconn().commit()
+            
+    #Load a value from database, if there is not such value, return default value.
+    def load_value(self, variable, default=None):
+        script = '''select value from plugins where plugin='{}' and variable='{}';'''
+        script = script.format(self.get_name(), variable)
+        cur = get_cursor()
+        val = cur.execute(script).fetchone()
+        return val[0] if val else default
+    
+    def update_value(self, variable, value):
+        script = '''
+replace into plugins values(?, ?, ?) 
+union select plugin, variable, from plugins
+where plugin='{}' and variable='{}'
+'''.format(self.get_name(), variable)
+        cur = get_cursor()
+        cur.execute(script, (self.get_name(), variable, value))
+        get_dbconn().commit()
+            
+    def ask_save(self, msg, obj, variable):
+        script = 'insert into plugins(plugin, variable, value) values(?, ?, ?);'
+        cur = get_cursor()
+        cur.execute(script, (self.get_name(), variable, ask(msg, obj)))
+        get_dbconn().commit()
+        return variable

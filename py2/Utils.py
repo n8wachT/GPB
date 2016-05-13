@@ -47,8 +47,8 @@ def get_binary(file_id, filename):
     full_url = '{}{}{}{}'.format(url_head, Settings.token, url_method, file_id)
     file_path = json.loads(get(full_url).text)['result']['file_path']
     file_url = 'https://api.telegram.org/file/bot{0}/{1}'.format(Settings.token, file_path)
-    response = get(file_url).text
-    with open(filename, 'w+b') as bin_file:
+    response = get(file_url).content
+    with open(filename, 'wb') as bin_file:
         bin_file.write(response)
     return len(response)
     
@@ -98,7 +98,14 @@ def change_line(target_file, original_line, modified_line):
         this.write(x)
     this.close()
 
-
+#Ask user for info and parse it from stdin.
+def ask(msg, obj, prompt='> '):
+    while(True):
+        try:
+            print(msg)
+            return obj(raw_input(prompt))
+        except Exception as e:
+            print('Exception: ', e , 'Try Again.')
 ### GROUP UTILS
 
 gfile = 'groups.json'

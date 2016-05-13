@@ -94,11 +94,11 @@ def group_glitch(m):
 #Bind message to group.
 def group_select(m):
     #Event Fired when the bot is invited to a group.
-    if(m.new_chat_participant and m.new_chat_participant.username == Settings.username):
+    if(m.new_chat_member and m.new_chat_member.username == Settings.username):
         group_invited(m)
         return
     #Event Fired when the bot is removed from group.
-    if(m.left_chat_participant and m.left_chat_participant.username == Settings.username):
+    if(m.left_chat_member and m.left_chat_member.username == Settings.username):
         group_expulsed(m)
         return
     #Normal Events for groups.

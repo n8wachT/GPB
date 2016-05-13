@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from Plugin import Plugin
 import feedparser
-from Utils import clean_markdown
 class Feed(Plugin):
     def on_start(self):
         super(Feed, self).on_start()

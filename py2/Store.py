@@ -6,23 +6,25 @@ create table bot (
     token       text primary key,
     username    text,
     nickname    text,
-    bot_id      bigint
+    bot_id      bigint,
+    owner_id    bigint
 );
-create table apikeys (
-    name        text primary key,
-    token       text not null
+create table plugins (
+    plugin      text,
+    variable    text,
+    value       text
 );
 create table groups (
-    id          bigint primary key not null,
-    admin       bigint default 0,
+    group_id    text,
+    manager     bigint default 0,
     type        text not null
 );
 create table ignored (
-    gid         bigint primary key not null,
+    gid         text,
     uid         bigint not null
 );
 create table mods (
-    gid         bigint primary key not null,
+    gid         text,
     uid         bigint not null
 );
 '''
@@ -38,17 +40,11 @@ if(not exists(db_filename)):
     print 'Creating file and schema.'
     build_schema()
 else:
-    print 'Database loaded.'
-    
+    print 'Database found.'
 
-def main(args):
-    pass
+def get_cursor():
+    conn = sqlite3.connect(db_filename)
+    return conn.cursor()
 
-def load_db():
-    pass
-
-    
-if __name__ == '__main__':
-    import sys
-    sys.exit(main(sys.argv))
-
+def get_dbconn():
+    return sqlite3.connect(db_filename)
