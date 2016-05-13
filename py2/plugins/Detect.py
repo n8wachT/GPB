@@ -32,6 +32,7 @@ class Detect(Plugin):
                 b_size = t_size
                 f_id = p.file_id
         fname = 'downloads/' + f_id + '.jpg'
+        fname = str(fname)
         get_binary(f_id, fname)
         fcs = detect_faces(fname)
         eys = detect_eyes(fname)
