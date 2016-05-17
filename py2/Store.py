@@ -10,9 +10,9 @@ create table bot (
     owner_id    bigint
 );
 create table plugins (
-    plugin      text,
-    variable    text,
-    value       text
+    plug_name   text primary key,
+    var_name    text,
+    var_value   text
 );
 create table groups (
     group_id    text,
@@ -45,6 +45,3 @@ else:
 def get_cursor():
     conn = sqlite3.connect(db_filename)
     return conn.cursor()
-
-def get_dbconn():
-    return sqlite3.connect(db_filename)

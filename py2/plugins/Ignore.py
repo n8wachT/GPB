@@ -4,7 +4,7 @@ class Ignore(Plugin):
     def on_start(self):
         self.need_mod = True
         self.plugin_type = 'Management'
-        super(Ignore, self).on_start()
+        return super(Ignore, self).on_start()
         
     def on_message(self, message):
         super(Ignore, self).on_message(message)

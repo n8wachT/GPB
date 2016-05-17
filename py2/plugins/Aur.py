@@ -4,8 +4,6 @@ from requests import get
 
 #deb_url = 'https://sources.debian.net/api/search/{}'
 class Aur(Plugin):
-    def on_start(self):
-        super(Aur, self).on_start()
 
     def on_message(self, message):
         super(Aur, self).on_message(message)

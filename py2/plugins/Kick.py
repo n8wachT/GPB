@@ -4,7 +4,7 @@ class Kick(Plugin):
     def on_start(self):
         self.need_mod = True
         self.plugin_type = 'Management'
-        super(Kick, self).on_start()
+        return super(Kick, self).on_start()
         
     def on_message(self, message):
         super(Kick, self).on_message(message)

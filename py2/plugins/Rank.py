@@ -4,7 +4,7 @@ class Rank(Plugin):
     def on_start(self):
         self.need_mod = True
         self.plugin_type = 'Management'
-        super(Rank, self).on_start()
+        return super(Rank, self).on_start()
         
     def on_message(self, message):
         super(Rank, self).on_message(message)

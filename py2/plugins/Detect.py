@@ -7,9 +7,6 @@ from os import unlink
 #Plugin section.
 class Detect(Plugin):
     
-    def on_start(self):
-        super(Detect, self).on_start()
-        
     def on_message(self, message):
         super(Detect, self).on_message(message)
         if(message.reply_to_message):

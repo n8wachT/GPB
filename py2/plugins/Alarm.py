@@ -35,8 +35,8 @@ class Alarm(Plugin):
         self.running = True
         self.hilo.daemon = True
         self.hilo.start()
-        print('hilo started')
-        super(Alarm, self).on_start()
+        print('Alarm thread started')
+        return super(Alarm, self).on_start()
         
     def on_message(self, message):
         super(Alarm, self).on_message(message)

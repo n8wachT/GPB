@@ -4,7 +4,7 @@ from Statics import group_tutorial_message
 class Tutorial(Plugin):
     def on_start(self):
         self.plugin_type = 'Basics'
-        super(Tutorial, self).on_start()
+        return super(Tutorial, self).on_start()
         
     def on_message(self, message):
         super(Tutorial, self).on_message(message)

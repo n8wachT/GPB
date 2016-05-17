@@ -4,7 +4,7 @@ class Gsettings(Plugin):
     def on_start(self):
         self.need_mod = True
         self.plugin_type = 'Management'
-        super(Gsettings, self).on_start()
+        return super(Gsettings, self).on_start()
     
     def on_message(self, message):
         super(Gsettings, self).on_message(message)

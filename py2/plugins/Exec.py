@@ -20,6 +20,7 @@ def execute(string):
 class Exec(Plugin):
     def on_start(self):
 	self.need_admin = True
+	return super(Exec, self).on_start()
 	
     def on_message(self, message):
         super(Exec, self).on_message(message)

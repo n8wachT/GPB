@@ -3,8 +3,6 @@ from json import loads
 from requests import get
 
 class Gituser(Plugin):
-    def on_start(self):
-        super(Gituser, self).on_start()
 
     def on_message(self, message):
         super(Gituser, self).on_message(message)

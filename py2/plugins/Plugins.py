@@ -17,7 +17,7 @@ class Plugins(Plugin):
     
     def on_start(self):
         self.need_admin = True
-        super(Plugins, self).on_start()
+        return super(Plugins, self).on_start()
         
     def on_message(self, message):
         super(Plugins, self).on_message(message)

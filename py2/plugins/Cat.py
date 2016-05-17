@@ -15,7 +15,7 @@ categories = [
 
 class Cat(Plugin):
     def on_start(self):
-        self.api_key = self.load_value('api_key')
+        self.api_key = self.fetch_value('api_key')
         if(not self.api_key):
             msg = 'Api key for thecatapi not found, please write / paste the token'
             self.api_key = ask(msg, str)
@@ -23,12 +23,11 @@ class Cat(Plugin):
                 print('Invalid token, this plugin will be disabled.')
                 return False
             else:
-                self.update_value('api_key', self.api_key)
+                self.set_value('api_key', self.api_key)
                 print('Token Saved.')
-            #self.api_key = self.ask_save(msg, str, 'api_key')
-            
-        #self.api_key = 'ODM4NDA'
-        super(Cat, self).on_start()
+        else:
+            print('Api key found: [%s]' % self.api_key)    
+        return super(Cat, self).on_start()
 
     def on_message(self, message):
         super(Cat, self).on_message(message)

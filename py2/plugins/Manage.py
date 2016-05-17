@@ -3,7 +3,7 @@ from Plugin import Plugin
 class Manage(Plugin):
     def on_start(self):
         self.need_mod = True
-        super(Manage, self).on_start()
+        return super(Manage, self).on_start()
         
     def on_message(self, message):
         super(Manage, self).on_message(message)

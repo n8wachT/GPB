@@ -2,8 +2,6 @@
 from Plugin import Plugin
 import feedparser
 class Feed(Plugin):
-    def on_start(self):
-        super(Feed, self).on_start()
 
     def on_message(self, message):
         super(Feed, self).on_message(message)
