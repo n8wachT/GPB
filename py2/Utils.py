@@ -24,7 +24,10 @@ def build_plugins(bot, folder, disabled=[]):
     plugins_list = []
     for x in get_modules(folder, disabled):
         plug = get_class(x)(bot)
-        plugins_list.append(plug)
+        if(plug.on_start()):
+            plugins_list.append(plug)
+        else:
+            print('Plugin %s can\'t be started.' % plug.get_name())
     return plugins_list
 
 #Downloads files from telegram and saves it with a given pathname

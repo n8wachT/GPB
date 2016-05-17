@@ -11,8 +11,6 @@ class Group(object):
         self.banned_users = []
         self.custom_fields = {}
         self.enabled_plugins = default_plugins
-        if(admin_id == 0):
-            self.enabled_plugins.append('claim')
         print('New Group Settings created: id[{}], admin[{}]'.format(self.id, self.admin))
         
     def add_moderator(self, user_id):
@@ -40,23 +38,23 @@ class Group(object):
             return 'Nope, you\'re the Manager, you can\'t make me ignore you.'
         if(user_id in Settings.admins):
             return 'Owners can\'t be ignored'
-        return 'Dafuq idk what happened with this error'
+        return 'Something went wrong.'
             
     def del_ignore(self, user_id):
         if(user_id in self.ignored_users):
             self.ignored_users.remove(user_id)
             return 'User removed from ignored list.'
-        return 'User is not a ignored user.'
+        return 'User is not an ignored user.'
          
     def add_plugin(self, plugin_name):
         if(plugin_name in self.enabled_plugins):
             return 'Plugin is already enabled.'
-        if(plugin_name in default_plugins):
-            return 'You can\'t disable default plugins.'
         self.enabled_plugins.append(plugin_name)
         return 'Plugin Enabled.'
         
     def del_plugin(self, plugin_name):
+        if(plugin_name in default_plugins):
+            return 'You can\'t disable default plugins.'
         if(plugin_name in self.enabled_plugins):
             self.enabled_plugins.remove(plugin_name)
             return 'Plugin disabled.'

@@ -89,6 +89,8 @@ def group_glitch(m):
     g = Group(m.chat.id, 0)
     Settings.groups.append(g)
     Settings.bot.send_message(m.chat.id, Statics.group_glitch_message)
+    g.add_plugin('claim')
+    print('New glitch group added.')
     
 
 #Bind message to group.

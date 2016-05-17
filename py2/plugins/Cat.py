@@ -1,6 +1,7 @@
 from Plugin import Plugin
 from requests import get
 from lxml import etree
+from Utils import ask
 
 #key=[ODM4NDA]
 cat_api = 'http://thecatapi.com/api/images/get?format=xml'
@@ -17,7 +18,14 @@ class Cat(Plugin):
         self.api_key = self.load_value('api_key')
         if(not self.api_key):
             msg = 'Api key for thecatapi not found, please write / paste the token'
-            self.api_key = self.ask_save(msg, str, 'api_key')
+            self.api_key = ask(msg, str)
+            if(self.api_key = ''):
+                print('Invalid token, this plugin will be disabled.')
+                return False
+            else:
+                self.update_value('api_key', self.api_key)
+                print('Token Saved.')
+            #self.api_key = self.ask_save(msg, str, 'api_key')
             
         #self.api_key = 'ODM4NDA'
         super(Cat, self).on_start()

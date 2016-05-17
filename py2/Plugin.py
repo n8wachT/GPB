@@ -27,8 +27,6 @@ class Plugin(object):
         self.private_only = False
         #Edit this if you want to make your plugin appear in plugin_market.
         self.plugin_type = 'Undefined'
-        #Customize your plugin inside this function.
-        self.on_start()
         
     #Returns the plugin name in lowercase based on class .    
     def get_name(self):
@@ -41,6 +39,7 @@ class Plugin(object):
     #Customize your plugin overriding this function.
     def on_start(self):
         print(self.get_name() + ' Plugin started.')
+        return True
     
     #Called when a message contains the plugin name.
     def on_message(self, message):

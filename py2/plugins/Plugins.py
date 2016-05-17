@@ -34,6 +34,16 @@ class Plugins(Plugin):
                 self.enable_plugin(opt)
             elif(arg == 'update'):
                 self.update_plugin(opt)
+            elif(arg == 'add'):
+                if(self.group):
+                    self.bot.reply_to(message, self.group.add_plugin(opt))
+                else:
+                    self.bot.reply_to(message, 'This only work in groups.')
+            elif(arg == 'remove'):
+                if(self.group):
+                    self.bot.reply_to(message, self.group.del_plugin(opt))
+                else:
+                    self.bot.reply_to(message, 'This only work in groups.')
             else:
                 self.bot.reply_to(message, 'Invalid Arguments')
         if(len(self.words) == 2):
@@ -111,7 +121,7 @@ class Plugins(Plugin):
         Settings.plugins = plugins_list
         self.bot.send_message(self.cid, '{0} news plugins found.'.format(diff))
         return diff
-
+        
 def write_to_file(name, text):
     with open(name, 'w') as f:
         f.write(text)
