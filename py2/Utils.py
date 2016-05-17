@@ -113,6 +113,13 @@ def ask(msg, obj, prompt='> '):
             return obj(raw_input(prompt))
         except Exception as e:
             print('Exception: ', e , 'Try Again.')
+            
+#Get plugins names.
+def plugins_names():
+    name_list = []
+    for plugin in Settings.plugins:
+        name_list.append(plugin.get_name())
+    return name_list
 ### GROUP UTILS
 
 gfile = 'groups.json'

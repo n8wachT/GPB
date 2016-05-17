@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from Plugin import Plugin
-from Utils import build_plugins, get_document
+from Utils import build_plugins, get_document, plugins_names
 import Settings
 help_message = "plugins <argument> [plugin]\n" + (
 '''Dinamic Plugin Manager.
@@ -35,11 +35,15 @@ class Plugins(Plugin):
             elif(arg == 'update'):
                 self.update_plugin(opt)
             elif(arg == 'add'):
+                if(opt not in plugins_names()):
+                    self.bot.reply_to(message, 'Invalid name.')
                 if(self.group):
                     self.bot.reply_to(message, self.group.add_plugin(opt))
                 else:
                     self.bot.reply_to(message, 'This only work in groups.')
             elif(arg == 'remove'):
+                if(opt not in plugins_names()):
+                    self.bot.reply_to(message, 'Invalid name.')
                 if(self.group):
                     self.bot.reply_to(message, self.group.del_plugin(opt))
                 else:
