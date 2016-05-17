@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import Settings, Statics
-from Utils import check_privileges, save_groups, kick_chat_member, is_old
+from Utils import check_privileges, save_groups, is_old
 from Group import Group
 ###GROUP CHAT EVENTS
 
@@ -145,10 +145,10 @@ def message_event(m):
     if(m.chat.type == 'private'):
         private_select(m)
         return
-    elif(m.chat.type == 'group'):
+    elif(m.chat.type in ['group', 'supergroup']):
         group_select(m)
         return
     else:
         Settings.bot.send_message(m.chat.id, 'This bot is not implemented to work in {} yet.'.format(m.chat.type))
-        kick_chat_member(m.chat.id, Settings.me.id)
+        Settings.bot.kick_chat_member(m.chat.id, Settings.me.id)
         #Settings.ignored_chats.append(m.chat.id)

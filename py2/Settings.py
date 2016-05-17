@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 import telebot
 from Utils import build_plugins, init_groups
+#comment the following line to use default timeout.
+telebot.apihelper.CONNECT_TIMEOUT = 9999
 #Put your id here to use admin-only plugins.
 admins = [59802458]
 #List of plugins that will not be loaded. Ex. ['Echo.py', 'Who.py']
-disabled_files = []
+disabled_files = ['Chat.py', 'Cat.py', 'Qr.py', 'Stickers.py']
 #Plugins that will be disabled at runtime if they throws exceptions.
 #Don't edit.
 disabled_plugins = []

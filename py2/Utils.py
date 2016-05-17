@@ -132,7 +132,7 @@ def save_groups(groups):
     for x in groups:
         groups_table.append(x.to_dict())
     with open(gfile, 'w') as f:
-        json.dump(groups_table, f)
+        json.dump(groups_table, f, indent=1)
     print('groups.json saved.')
         
 def get_group(chat_id):
@@ -163,14 +163,6 @@ def check_privileges(u, g, p):
         privilege_required += 2
     can = privilege_level >= privilege_required
     return can
-
-
-##CUSTOM BOT UTILS
-def kick_chat_member(chat_id, user_id):
-    url = 'https://api.telegram.org/bot{}/kickChatMember?chat_id={}&user_id={}'.format(
-    Settings.token, chat_id, user_id)
-    response = get(url).text
-    return json.loads(response)
 
 ##MESSAGE UTILS
 def is_old(m):

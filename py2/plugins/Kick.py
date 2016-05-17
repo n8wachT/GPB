@@ -1,5 +1,5 @@
 from Plugin import Plugin
-from Utils import kick_chat_member
+
 class Kick(Plugin):
     def on_start(self):
         self.need_mod = True
@@ -14,19 +14,21 @@ class Kick(Plugin):
                 self.bot.send_message(self.cid, 'Can\'t kick moderators.')
             if(self.group.admin == target_id):
                 self.bot.send_message(self.cid, 'Can\'t kick Managers.')
-            res = kick_chat_member(self.cid, target_id)
-            #self.bot.send_message(self.cid, str(res))
-            if(not res['ok']):
-                self.bot.send_message(self.cid, res['description'])
+            try:
+                self.bot.kick_chat_member(self.cid, target_id)
+                self.bot.unban_chat_member(self.cid, target_id)
+            except Exception as e:
+                self.bot.send_message(self.cid, 'An error has ocurred:\n%s' % e)
+            
         if(len(self.words) == 2):
             try:
                 target_id = int(self.words[1])
-                res = kick_chat_member(self.cid, target_id)
-                if(not res['ok']):
-                    self.bot.send_message(self.cid, res['description'])
-            except:
-                self.bot.send_message(self.cid, 'Invalid Arguments')
+                self.bot.kick_chat_member(self.cid, target_id)
+                self.bot.unban_chat_member(self.cid, target_id)
+            except Exception as e:
+                self.bot.send_message(self.cid, 'Something went wrong:\n%s' % e)
         if(len(self.words) == 1):
             self.bot.send_message(self.cid, self.get_help())
+            
     def get_help(self):
         return "kick <id>\nKicks users by id or reply."
