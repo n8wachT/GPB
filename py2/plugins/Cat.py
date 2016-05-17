@@ -19,7 +19,7 @@ class Cat(Plugin):
         if(not self.api_key):
             msg = 'Api key for thecatapi not found, please write / paste the token'
             self.api_key = ask(msg, str)
-            if(self.api_key = ''):
+            if(self.api_key == ''):
                 print('Invalid token, this plugin will be disabled.')
                 return False
             else:
